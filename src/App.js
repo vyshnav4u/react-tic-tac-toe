@@ -27,7 +27,7 @@ function App() {
     );
   };
 
-  const isWinner = (currentIndex) => {
+  const isWinner = (currentIndex,cb) => {
     pattern.forEach((singlePattern, index) => {
       if (singlePattern.includes(currentIndex)) {
         let tempIndex_0 = singlePattern[0];
@@ -39,21 +39,23 @@ function App() {
           value[tempIndex_1] == value[tempIndex_2]
         ) {
           console.log("finish");
-          return true;
+          cb(true);
         }
       }
     });
-    return false;
+    cb(false);
   };
 
   useEffect(() => {
     if (currentSquare >= 0) {
       console.log("bie");
-      let winFlag = isWinner(currentSquare);
-      console.log(winFlag);
-      if (winFlag) {
-        alert("won");
-      }
+      isWinner(currentSquare,(winFlag)=>{
+        console.log(winFlag);
+        if (winFlag) {
+          alert("won");
+        }
+      });
+      
     }
   }, [currentSquare, value]);
 
